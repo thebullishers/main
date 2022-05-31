@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev:pre": "echo \"start the ngrox server\"",
     "dev": "next dev",
+    "dev:post": "echo \"Update the auth0 LOCAL_NGROK secret dynamically\"",
     "build": "next build",
     "start": "next start"
   },
