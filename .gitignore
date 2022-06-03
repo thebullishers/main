@@ -36,3 +36,7 @@ yarn-error.log*
 
 # ide
 .idea
+
+#config files
+
+config.json
