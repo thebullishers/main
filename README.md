@@ -145,12 +145,36 @@ npx ngrok http 3000
   - Add in Allowed Callback URLs: `http://localhost:3000/api/auth/callback`
   - Add in Allowed logout URLs : `http://localhost:3000`
 
+## A0deploy CLI
+
+Setup the application with ```tenanl.yaml``` file
+**Export data**
+```
+a0deploy export --config_file config.json --format yaml --output_folder .
+```
+**import new data to server auth0**
+```
+a0deploy import --config_file config.json --input_file tenant.yaml
+```
+
+## SCript for run and deploying with Makefile
+
+**run npm dev and ngrok**
+```
+make -j2
+```
+
+**get ngrok url and deploy to auth0**
+```
+make auth0
+```
+
 ### Todo next 
 
 1. [ ] organize a meeting with guillaume to understand thebullishers project
 1. [x] connect https://studio.apollographql.com/sandbox/explorer so it can reach `http://localhost:3000/api/graphql`, currently we have this error :
     > {"errors":[{"message":"Context creation failed: Cannot destructure property 'user' of '(0 , _auth0_nextjs_auth0__WEBPACK_IMPORTED_MODULE_1__.getSession)(...)' as it is null.","extensions":{"code":"INTERNAL_SERVER_ERROR","exception":{"stacktrace":["TypeError: Context creation failed: Cannot destructure property 'user' of '(0 , _auth0_nextjs_auth0__WEBPACK_IMPORTED_MODULE_1__.getSession)(...)' as it is null.","    at ApolloServer.createContext [as context] (webpack-internal:///(api)/./graphql/context.ts:15:5)","    at ApolloServer.graphQLServerOptions (/home/dka/workspace/github.com/thebullishers/main/node_modules/apollo-server-core/dist/ApolloServer.js:466:34)","    at runMicrotasks (<anonymous>)","    at processTicksAndRejections (node:internal/process/task_queues:96:5)"]}}}]}
-1. [ ] create a script to start ngrok and update using auht0 api the `LOCAL_NGROK` env using access from `.env`
+1. [x] create a script to start ngrok and update using auht0 api the `LOCAL_NGROK` env using access from `.env`
 1. [ ] connect logout / improve auth0 knowledge
 1. [ ] TODO: find why `http://localhost:3000/_next/static/chunks/pages/api/auth/%5B...auth0%5D.js` assets is 404
 1. [ ] write documentation on how to develop using this boilerplate
