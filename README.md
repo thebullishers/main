@@ -148,7 +148,7 @@ npx ngrok http 3000
 ### Todo next 
 
 1. [ ] organize a meeting with guillaume to understand thebullishers project
-1. [ ] connect https://studio.apollographql.com/sandbox/explorer so it can reach `http://localhost:3000/api/graphql`, currently we have this error :
+1. [x] connect https://studio.apollographql.com/sandbox/explorer so it can reach `http://localhost:3000/api/graphql`, currently we have this error :
     > {"errors":[{"message":"Context creation failed: Cannot destructure property 'user' of '(0 , _auth0_nextjs_auth0__WEBPACK_IMPORTED_MODULE_1__.getSession)(...)' as it is null.","extensions":{"code":"INTERNAL_SERVER_ERROR","exception":{"stacktrace":["TypeError: Context creation failed: Cannot destructure property 'user' of '(0 , _auth0_nextjs_auth0__WEBPACK_IMPORTED_MODULE_1__.getSession)(...)' as it is null.","    at ApolloServer.createContext [as context] (webpack-internal:///(api)/./graphql/context.ts:15:5)","    at ApolloServer.graphQLServerOptions (/home/dka/workspace/github.com/thebullishers/main/node_modules/apollo-server-core/dist/ApolloServer.js:466:34)","    at runMicrotasks (<anonymous>)","    at processTicksAndRejections (node:internal/process/task_queues:96:5)"]}}}]}
 1. [ ] create a script to start ngrok and update using auht0 api the `LOCAL_NGROK` env using access from `.env`
 1. [ ] connect logout / improve auth0 knowledge

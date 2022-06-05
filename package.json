@@ -7,7 +7,8 @@
     "dev": "next dev",
     "dev:post": "echo \"Update the auth0 LOCAL_NGROK secret dynamically\"",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prisma": "prisma studio"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
