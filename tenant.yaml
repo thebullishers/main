@@ -45,7 +45,6 @@ databases:
   - name: Username-Password-Authentication
     strategy: auth0
     enabled_clients:
-      - Default App
       - The bullishers
     is_domain_connection: false
     options:

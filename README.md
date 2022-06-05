@@ -1,4 +1,5 @@
 # Stacks
+
 - **Next.js** as the React framework
 - **Apollo** Server as the GraphQL server
 - **Nexus** for constructing the GraphQL schema
@@ -24,9 +25,10 @@
 # Progress
 
 ## Part 1
+
 Defining the app's requirements and setting up the database layer using Prisma.
 
-```
+```bash
 npm run dev
 ```
 
@@ -44,7 +46,7 @@ Next.js is a fullstack React framework with support for different data fetching 
 - **Prisma Client**, a type-safe query builder, which will allow us to interact with our database.
 - **Prisma Studio**, a GUI for exploring and manipulating your data
 
-```
+```bash
 npx prisma db push
 npx prisma db seed --preview-feature
 npx prisma studio
@@ -54,8 +56,8 @@ npx prisma studio
 
 GraphQL is a new API standard that was developed and open-sourced by Facebook.
 
-```
-npm install graphql apollo-server-micro micro-cors
+```bash
+yarn add graphql apollo-server-micro micro-cors
 ```
 
 - The graphql package is the JavaScript reference implementation for GraphQL. 
@@ -63,15 +65,18 @@ npm install graphql apollo-server-micro micro-cors
 - This integration is optimized for Next.js. 
 - Finally, you are using micro-cors to be able to use Apollo Studio.
 
-```
+```ts
 type Query {
   links: [Link]!
 }
-The ! is used to indicate that this field is non-nullable
+// The ! is used to indicate that this field is non-nullable
 ```
 
 ### Nexus
-Nexus is a GraphQL schema construction library where you define your GraphQL schema using code. The value proposition of this approach is you are using a programming language to build your API, which has multiple benefits:
+
+Nexus is a GraphQL schema construction library where you define your GraphQL schema using code. 
+The value proposition of this approach is you are using a programming language to build your API, which has multiple benefits:
+
 - No need to context-switch between SDL and the programming language you are using to build your business logic.
 - Auto-completion from the text-editor
 - Type-safety (if you are using TypeScript)
@@ -81,9 +86,10 @@ Nexus is a GraphQL schema construction library where you define your GraphQL sch
 - **Relay Cursor Connections Specification** to the GraphQL schema
 
 ### Auth0
+
 – an authentication and authorization drop-in solution.
 
-```
+```bash
 npx ngrok http 3000
 ```
 
@@ -147,25 +153,86 @@ npx ngrok http 3000
 
 ## A0deploy CLI
 
-Setup the application with ```tenanl.yaml``` file
-**Export data**
+**Install a0deploy cli**
+
+```bash
+npm i -g auth0-deploy-cli 
 ```
+
+Read more: https://auth0.com/docs/deploy-monitor/deploy-cli-tool/install-and-configure-the-deploy-cli-tool#install-the-deploy-cli-tool
+
+## Configure the auth0 application with `tenant.yaml` file
+
+**Create client `access_grant` (If not done yet)**
+
+1. Run `cp config.json.example config.json`
+2. Configure `config.json`
+   1. TODO: ask what is `AUTH0_KEYWORD_REPLACE_MAPPINGS > AUTH0_TENANT_NAME`
+3. Go to https://auth0.com/docs/api/management/v2#!/Client_Grants/post_client_grants
+4. set the API TOKEN using a testing token,
+5. use the following payload and run.
+
+```json
+{
+   "client_id": "",
+   "audience": "",
+   "scope": [
+      "read:tenant_settings",
+      "update:tenant_settings",
+      "read:rules",
+      "read:hooks",
+      "read:resource_servers",
+      "read:clients",
+      "create:clients",
+      "update:guardian",
+      "update:guardian_factors",
+      "update:clients",
+      "update:mfa_policies",
+      "update:prompts",
+      "update:attack_protection",
+      "read:log_streams",
+      "read:connections",
+      "update:connections",
+      "read:client_grants",
+      "read:roles",
+      "read:actions",
+      "update:actions",
+      "create:actions",
+      "read:organizations",
+      "update:organizations"
+   ]
+}
+```
+
+- `Audience` can be found in https://manage.auth0.com/dashboard/eu/thebullishers/apis
+- `client_id` can be found in https://manage.auth0.com/dashboard/eu/thebullishers/applications
+
+> if you have `invalid_request (no connections enabled for the client)`, just go to the auth0 dashboard, select application, connections and enable `database` and `social` 
+
+**Export data**
+
+```bash
 a0deploy export --config_file config.json --format yaml --output_folder .
 ```
+
 **import new data to server auth0**
-```
+
+```bash
 a0deploy import --config_file config.json --input_file tenant.yaml
 ```
 
-## SCript for run and deploying with Makefile
+
+## Script for run and deploying with Makefile
 
 **run npm dev and ngrok**
-```
+
+```bash
 make -j2
 ```
 
 **get ngrok url and deploy to auth0**
-```
+
+```bash
 make auth0
 ```
 
